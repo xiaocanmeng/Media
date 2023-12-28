@@ -9,6 +9,8 @@ int tutorial_main_2 (int argc, char *argv[])
 {
   InFunLOG();
   GstElement *pipeline, *source, *sink;
+  GstElement *vertigotv;
+  // GstElement *vertigotv;
   GstBus *bus;
   GstMessage *msg;
   GstStateChangeReturn ret;
@@ -17,6 +19,7 @@ int tutorial_main_2 (int argc, char *argv[])
 
   /* Create the elements */
   source = gst_element_factory_make ("videotestsrc", "source");
+  vertigotv = gst_element_factory_make ("vertigotv", "vertigotv");
   sink = gst_element_factory_make ("autovideosink", "sink");
 
   /* Create the empty pipeline */
@@ -28,8 +31,14 @@ int tutorial_main_2 (int argc, char *argv[])
   }
 
   /* Build the pipeline */
-  gst_bin_add_many (GST_BIN (pipeline), source, sink, NULL);
-  if (gst_element_link (source, sink) != TRUE) {
+  gst_bin_add_many (GST_BIN (pipeline), source, vertigotv,sink, NULL);
+  if (gst_element_link (source, vertigotv) != TRUE) {
+    g_printerr ("Elements could not be linked.\n");
+    gst_object_unref (pipeline);
+    return -1;
+  }
+
+if (gst_element_link (vertigotv,sink) != TRUE) {
     g_printerr ("Elements could not be linked.\n");
     gst_object_unref (pipeline);
     return -1;
