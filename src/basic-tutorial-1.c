@@ -4,8 +4,7 @@
 #include <TargetConditionals.h>
 #endif
 
-int
-tutorial_main (int argc, char *argv[])
+int tutorial_main_1 (int argc, char *argv[])
 {
   GstElement *pipeline;
   GstBus *bus;
@@ -17,7 +16,7 @@ tutorial_main (int argc, char *argv[])
   /* Build the pipeline */
   pipeline =
       gst_parse_launch
-      ("playbin uri=https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm",
+      ("playbin uri=file:///home/dev/work/Media/data/190101000052DCF0.mp4",
       NULL);
 
   /* Start playing */
@@ -43,11 +42,3 @@ tutorial_main (int argc, char *argv[])
   return 0;
 }
 
-int main (int argc, char *argv[])
-{
-#if defined(__APPLE__) && TARGET_OS_MAC && !TARGET_OS_IPHONE
-  return gst_macos_main (tutorial_main, argc, argv, NULL);
-#else
-  return tutorial_main (argc, argv);
-#endif
-}
