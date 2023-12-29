@@ -4,7 +4,7 @@ project(GST_TEST)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC")
 
 # 寻找GStreamer库
 find_package(PkgConfig REQUIRED)
@@ -23,11 +23,12 @@ add_compile_options(-Wno-sign-conversion)
 
 
 set(GST_TEST
-    src/basic-tutorial-1.c
-    src/basic-tutorial-2.c
-    src/basic-tutorial-3.c
-    src/log.c
-    ./main.c)
+    # src/basic-tutorial-1.c
+    # src/basic-tutorial-2.c
+    # src/basic-tutorial-3.c
+    # src/log.c
+    RefactorSrc/sample-2.cpp
+    ./main.cpp)
 # add debug
 SET(CMAKE_BUILD_TYPE "Debug") 
 
