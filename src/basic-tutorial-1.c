@@ -16,7 +16,7 @@ int tutorial_main_1 (int argc, char *argv[])
   /* Build the pipeline */
   pipeline =
       gst_parse_launch
-      ("playbin uri=file:///home/dev/work/Media/data/190101000052DCF0.mp4",
+      ("playbin uri=https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm",
       NULL);
 
   /* Start playing */
