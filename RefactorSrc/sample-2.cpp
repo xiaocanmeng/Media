@@ -18,7 +18,6 @@ bool isNULL(T first, Args... args)
 {
   if (first != nullptr)
   {
-    std::cout << first << ' ';
     return isNULL(args...); // recursive call
   }
   else
@@ -28,8 +27,8 @@ bool isNULL(T first, Args... args)
 }
 
 // Termination conditions for recursive calls
-template <typename Element>
-bool linkElementsHelper(GstElement *source, Element *last)
+template <typename GstElement>
+bool linkElementsHelper(GstElement *source, GstElement *last)
 {
   // Base case: Only two elements, link them directly.
   return gst_element_link(source, last);
@@ -37,22 +36,23 @@ bool linkElementsHelper(GstElement *source, Element *last)
 
 // Auxiliary structure for recursively linking elements
 template <typename First, typename Second, typename... Rest>
-bool linkElementsHelper(GstElement *source, First *first, Second *second, Rest *...rest)
+bool linkElementsHelper(First *first, Second *second, Rest *...rest)
 {
   // Recursive case: Link the adjacent elements and call itself recursively for the rest.
-  return gst_element_link(first, second) && linkElementsHelper(source, second, rest...);
+  return gst_element_link(first, second) && linkElementsHelper(second, rest...);
 }
 
 // The outermost linkElements function is used to start recursion
-template <typename... Elements>
-bool linkElements(GstElement *source, Elements *...elements)
+template <typename... GstElementTypes>
+bool linkElements(GstElementTypes *...elements)
 {
   // External interface that calls the helper function.
-  return linkElementsHelper(source, elements...); // Fold Expressions Template
+  return linkElementsHelper(elements...); // Fold Expressions Template
 }
 
 void parseMessage(GstMessage *msg)
 {
+  InFunLOG();
   /* Parse message */
   if (msg != NULL)
   {
@@ -80,6 +80,7 @@ void parseMessage(GstMessage *msg)
     }
     gst_message_unref(msg);
   }
+  OutFunLOG();
 }
 
 int tutorial_main_2(int argc, char *argv[])
@@ -108,7 +109,7 @@ int tutorial_main_2(int argc, char *argv[])
   {
     /* Build the pipeline */
     gst_bin_add_many(GST_BIN(pipeline), source, vertigotv, sink, NULL);
-    if(linkElements(pipeline, source, vertigotv, sink))
+    if(linkElements(source, vertigotv, sink))
     {
       /* Modify the source's properties */
       g_object_set(source, "pattern", 0, NULL);
@@ -136,7 +137,7 @@ int tutorial_main_2(int argc, char *argv[])
     }
     else
     {
-       g_printerr("Elements could not be linked.\n");
+       std::cout<<"Elements could not be linked."<<__LINE__<<std::endl;
        gst_object_unref(pipeline);
     }
   }
@@ -144,5 +145,6 @@ int tutorial_main_2(int argc, char *argv[])
   {
     g_printerr("Not all elements could be created.\n");
   }
+  OutFunLOG();
   return 0;
 }
