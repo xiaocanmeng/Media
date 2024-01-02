@@ -1,12 +1,15 @@
 #include <iostream>
 
 /* Structure to contain all our information, so we can pass it to callbacks */
-struct CustomData {
+struct CustomData 
+{
   GstElement *pipeline;
   GstElement *source;
-  GstElement *convert;
   GstElement *resample;
-  GstElement *sink;
+  GstElement *audioconvert;
+  GstElement *audiosink;
+  GstElement *videoconvert;
+  GstElement *videosink;
 };
 
 
@@ -16,7 +19,11 @@ class Sample
 private:
     CustomData data;
     /* Handler for the pad-added signal */
-    static void pad_added_handler (GstElement *src, GstPad *pad, CustomData *data);
+    static void audio_pad_added_handler (GstElement *src, GstPad *pad, CustomData *data);
+    static void video_pad_added_handler (GstElement *src, GstPad *pad, CustomData *data);
+    void parseMessage(GstBus *bus);
+    static void exit(GstCaps *new_pad_caps,GstPad *sink_pad);
+    static void pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *data,const gchar *pad_type,const gchar * prefix);
 public:    
     int32_t tutorial_main_3(int argc, char *argv[]);
 };
