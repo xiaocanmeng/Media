@@ -45,9 +45,8 @@ void Sample::exit(GstCaps *new_pad_caps,GstPad *sink_pad)
 * @par        Sequence diagram:
 * @image      {name}.png
 *******************************************************************************/
-void Sample::pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *data,const gchar *pad_type,const gchar * prefix)
+void Sample::pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *data,GstPad *sink_pad,const gchar * prefix)
 {
-  GstPad *sink_pad = gst_element_get_static_pad (data->audioconvert, pad_type);
   GstPadLinkReturn ret;
   GstCaps *new_pad_caps = NULL;
   GstStructure *new_pad_struct = NULL;
@@ -100,7 +99,8 @@ void Sample::pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *dat
 *******************************************************************************/
 void Sample::audio_pad_added_handler (GstElement *src, GstPad *new_pad, CustomData *data) 
 {
-  pad_added_handler(src,new_pad,data,"audiosink","audio/x-raw");
+  GstPad *sink_pad = gst_element_get_static_pad (data->audioconvert, "sink");
+  pad_added_handler(src,new_pad,data,sink_pad,"audio/x-raw");
 }
 /*******************************************************************************
 * @brief      {brief}
@@ -120,7 +120,8 @@ void Sample::audio_pad_added_handler (GstElement *src, GstPad *new_pad, CustomDa
 *******************************************************************************/
 void Sample::video_pad_added_handler (GstElement *src, GstPad *new_pad, CustomData *data) 
 {
-  pad_added_handler(src,new_pad,data,"videosink","vedio/x-raw");
+  GstPad *sink_pad = gst_element_get_static_pad (data->videoconvert, "sink");
+  pad_added_handler(src,new_pad,data,sink_pad,"video/x-raw");
 }
 /*******************************************************************************
 * @brief      {brief}
@@ -217,7 +218,8 @@ int32_t Sample::tutorial_main_3(int argc, char *argv[])
   /* Create the empty pipeline */
   data.pipeline = gst_pipeline_new ("test-pipeline");
 
-  if (isNULL(data.pipeline,data.source,data.audioconvert,data.resample,data.audiosink,data.videoconvert, data.videosink)) 
+  // if (isNULL(data.pipeline,data.source,data.audioconvert,data.resample,data.audiosink,data.videoconvert, data.videosink)) 
+  if (isNULL(data.pipeline,data.source,data.videoconvert, data.videosink)) 
   {
     g_printerr ("Not all elements could be created.\n");
   }
@@ -226,8 +228,9 @@ int32_t Sample::tutorial_main_3(int argc, char *argv[])
     /* Build the pipeline. Note that we are NOT linking the source at this
        point. We will do it later. */
     gst_bin_add_many(GST_BIN(data.pipeline), data.source, data.audioconvert, data.resample, data.audiosink, data.videosink, data.videoconvert, NULL);
+    // gst_bin_add_many(GST_BIN(data.pipeline), data.source, data.videoconvert, data.videosink, NULL);
     if (!gst_element_link_many(data.audioconvert, data.resample, data.audiosink, NULL) ||
-        !gst_element_link_many(data.videoconvert, data.videosink, NULL))
+         !gst_element_link_many(data.videoconvert, data.videosink, NULL))
     {
       g_printerr("Elements could not be linked.\n");
       gst_object_unref(data.pipeline);

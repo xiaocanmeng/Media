@@ -6,7 +6,9 @@ typedef struct _CustomData {
   GstElement *source;
   GstElement *convert;
   GstElement *resample;
-  GstElement *sink;
+  GstElement *audiosink;
+  GstElement *videoconvert; 
+  GstElement *videosink; 
 } CustomData;
 
 /* Handler for the pad-added signal */
@@ -15,7 +17,7 @@ static void pad_added_handler (GstElement *src, GstPad *pad, CustomData *data);
 
 /* This function will be called by the pad-added signal */
 static void pad_added_handler (GstElement *src, GstPad *new_pad, CustomData *data) {
-  GstPad *sink_pad = gst_element_get_static_pad (data->convert, "sink");
+  GstPad *sink_pad = gst_element_get_static_pad (data->videoconvert, "sink");
   GstPadLinkReturn ret;
   GstCaps *new_pad_caps = NULL;
   GstStructure *new_pad_struct = NULL;
@@ -33,10 +35,23 @@ static void pad_added_handler (GstElement *src, GstPad *new_pad, CustomData *dat
   new_pad_caps = gst_pad_get_current_caps (new_pad);
   new_pad_struct = gst_caps_get_structure (new_pad_caps, 0);
   new_pad_type = gst_structure_get_name (new_pad_struct);
-  if (!g_str_has_prefix (new_pad_type, "audio/x-raw")) {
+  if (!g_str_has_prefix (new_pad_type, "video/x-raw")) {
     g_print ("It has type '%s' which is not raw audio. Ignoring.\n", new_pad_type);
     goto exit;
   }
+  // else if (g_str_has_prefix (new_pad_type, "video/x-raw")) {
+  //   // 处理视频流
+  //   g_print ("Linking video pad '%s'\n", GST_PAD_NAME (new_pad));
+  //   ret = gst_pad_link (new_pad, gst_element_get_static_pad (data->videoconvert, "sink"));
+  //   if (GST_PAD_LINK_FAILED (ret)) {
+  //     g_print ("Video pad link failed.\n");
+  //   } else {
+  //     g_print ("Video pad link succeeded.\n");
+  //   }
+  // } else {
+  //   g_print ("Ignoring pad with unknown type '%s'.\n", new_pad_type);
+  // }
+
 
   /* Attempt the link */
   ret = gst_pad_link (new_pad, sink_pad);
@@ -68,26 +83,50 @@ int tutorial_main_3(int argc, char *argv[])
 
   /* Create the elements */
   data.source = gst_element_factory_make ("uridecodebin", "source");
-  data.convert = gst_element_factory_make ("audioconvert", "convert");
-  data.resample = gst_element_factory_make ("audioresample", "resample");
-  data.sink = gst_element_factory_make ("autoaudiosink", "sink");
+
+  // data.convert = gst_element_factory_make ("audioconvert", "convert");
+  // data.resample = gst_element_factory_make ("audioresample", "resample");
+  // data.audiosink = gst_element_factory_make ("autoaudiosink", "audiosink");
+
+
+  data.videoconvert = gst_element_factory_make ("videoconvert", "videoconvert");
+  data.videosink = gst_element_factory_make ("autovideosink", "videosink");
+
+/* 创建视频元素 */
+if (!data.videosink || !data.videoconvert) {
+  g_printerr ("Not all video elements could be created.\n");
+  return -1;
+}
+
+
 
   /* Create the empty pipeline */
   data.pipeline = gst_pipeline_new ("test-pipeline");
 
-  if (!data.pipeline || !data.source || !data.convert || !data.resample || !data.sink) {
-    g_printerr ("Not all elements could be created.\n");
-    return -1;
-  }
+  // if (!data.pipeline || !data.source || !data.convert || !data.resample || !data.audiosink) {
+  //   g_printerr ("Not all elements could be created.\n");
+  //   return -1;
+  // }
 
   /* Build the pipeline. Note that we are NOT linking the source at this
    * point. We will do it later. */
-  gst_bin_add_many (GST_BIN (data.pipeline), data.source, data.convert, data.resample, data.sink, NULL);
-  if (!gst_element_link_many (data.convert, data.resample, data.sink, NULL)) {
-    g_printerr ("Elements could not be linked.\n");
-    gst_object_unref (data.pipeline);
-    return -1;
-  }
+  // gst_bin_add_many (GST_BIN (data.pipeline), data.source, data.convert, data.resample, data.audiosink, NULL);
+  // if (!gst_element_link_many (data.convert, data.resample, data.audiosink, NULL)) {
+  //   g_printerr ("Elements could not be linked.\n");
+  //   gst_object_unref (data.pipeline);
+  //   return -1;
+  // }
+
+/* 将视频元素添加到pipeline中 */
+gst_bin_add_many (GST_BIN (data.pipeline), data.source, data.videoconvert, data.videosink, NULL);
+
+/* 链接音频和视频元素 */
+if (!gst_element_link_many (data.videoconvert, data.videosink, NULL))
+{
+  g_printerr ("Elements could not be linked.\n");
+  gst_object_unref (data.pipeline);
+  return -1;
+}
 
   /* Set the URI to play */
   g_object_set (data.source, "uri", "https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm", NULL);
@@ -107,7 +146,7 @@ int tutorial_main_3(int argc, char *argv[])
   bus = gst_element_get_bus (data.pipeline);
   do {
     msg = gst_bus_timed_pop_filtered (bus, GST_CLOCK_TIME_NONE,
-        GST_MESSAGE_STATE_CHANGED | GST_MESSAGE_ERROR | GST_MESSAGE_EOS);
+        static_cast<GstMessageType>(GST_MESSAGE_STATE_CHANGED | GST_MESSAGE_ERROR | GST_MESSAGE_EOS));
 
     /* Parse message */
     if (msg != NULL) {

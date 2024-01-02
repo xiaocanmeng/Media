@@ -23,7 +23,7 @@ private:
     static void video_pad_added_handler (GstElement *src, GstPad *pad, CustomData *data);
     void parseMessage(GstBus *bus);
     static void exit(GstCaps *new_pad_caps,GstPad *sink_pad);
-    static void pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *data,const gchar *pad_type,const gchar * prefix);
+    static void pad_added_handler(GstElement *src, GstPad *new_pad, CustomData *data,GstPad *sink_pad,const gchar * prefix);
 public:    
     int32_t tutorial_main_3(int argc, char *argv[]);
 };
