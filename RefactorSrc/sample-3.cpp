@@ -1,5 +1,5 @@
 #include <gst/gst.h>
-#include "sample-3.h"
+#include "sample.h"
 #include "utility.hpp"
 
 /* This function will be called by the pad-added signal */

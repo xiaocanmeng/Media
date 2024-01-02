@@ -1,5 +1,5 @@
 #include "basic-tutorial.h"
-#include "sample-3.h"
+#include "sample.h"
 #include "log.h"
 int main (int argc, char *argv[])
 {
