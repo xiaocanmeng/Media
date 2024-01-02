@@ -10,8 +10,8 @@ int main (int argc, char *argv[])
   // tutorial_main_1(argc,argv);
   // int32_t ret = tutorial_main_2(argc,argv);
   
-  Sample sample3 {};
-  int32_t ret = sample3.tutorial_main_3(argc,argv);
+  Sample sample {};
+  int32_t ret = sample.tutorial_main_3(argc,argv);
   printf("ret = %d\n",ret);
   return ret;
 #endif
