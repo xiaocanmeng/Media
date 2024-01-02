@@ -26,6 +26,7 @@ set(GST_TEST
     # src/basic-tutorial-1.c
     # src/basic-tutorial-2.c
     # src/basic-tutorial-3.c
+    src/basic-tutorial-4.cpp
     # src/log.c
     # RefactorSrc/sample-2.cpp
     RefactorSrc/sample-3.cpp
