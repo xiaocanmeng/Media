@@ -1,0 +1,56 @@
+
+//doxdocgen
+
+    "doxdocgen.c.firstLine": "/*******************************************************************************",
+    "doxdocgen.c.lastLine": "*******************************************************************************/",
+    "doxdocgen.c.commentPrefix": "* ",
+    "doxdocgen.file.fileTemplate": "@file{indent:12}{name}",
+    "doxdocgen.generic.briefTemplate": "@brief{indent:12}{brief}",
+    "doxdocgen.generic.authorName": "XIAOCANMENG",
+    "doxdocgen.generic.authorTag": "@author{indent:12}{author}",
+    "doxdocgen.generic.dateTemplate": "@date{indent:12}{date}",
+    "doxdocgen.file.versionTag": "@version{indent:12}V1.0",
+    "doxdocgen.file.copyrightTag": [
+        "@copyright{indent:12}Copyright (c) {year}"
+    ],
+    "doxdocgen.file.fileOrder": [
+        "file",
+        "empty",
+        "brief",
+        "empty",
+        "author",
+        "empty",
+        "date",
+        "empty",
+        "version",
+        "empty",
+        "copyright",
+    ],
+    "doxdocgen.generic.paramTemplate": "@param{indent:12}[in]{indent:20}{param}",
+    "doxdocgen.generic.returnTemplate": "@retval{indent:12}{type}",
+    "doxdocgen.generic.boolReturnsTrueFalse": false,
+    "doxdocgen.generic.order": [
+
+        "brief",
+        "empty",
+        "param",
+        "empty",
+        "return",
+        "empty",
+        "author",
+        "empty",
+        "par",
+        "custom"
+      ],
+      "doxdocgen.generic.customTags": [
+        "@par{indent:12}revision history:",
+        "    {indent:12} - 000000 : {date} : XIAOCANMENG    : New regulations made",
+        "",
+        "@par{indent:12}Sequence diagram:",
+        "@image{indent:12}{name}.png"
+    ],
+    "C_Cpp.codeAnalysis.clangTidy.codeAction.formatFixes": false,
+    "C_Cpp.codeAnalysis.clangTidy.codeAction.showDisable": false,
+    "C_Cpp.codeAnalysis.clangTidy.codeAction.showDocumentation": false,
+    "problems.showCurrentInStatus": true,
+    "terminal.integrated.defaultProfile.linux": "bash",
