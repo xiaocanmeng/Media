@@ -1,0 +1,12 @@
+# 忽略所有 .log 文件
+*.log
+
+# 忽略所有 .txt 文件
+*.txt
+
+# 忽略 build 目录及其内容
+/build/
+
+# 忽略所有 .pdf 文件，但不忽略 example.pdf
+*.pdf
+!example.pdf
