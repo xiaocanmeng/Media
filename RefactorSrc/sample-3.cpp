@@ -198,7 +198,7 @@ void Sample::parseMessage(GstBus *bus)
 * @par        Sequence diagram:
 * @image      {name}.png
 *******************************************************************************/
-int32_t Sample::tutorial_main_3(int argc, char *argv[]) 
+int32_t Sample::tutorial_main_3(int32_t argc, char *argv[]) 
 {
   CustomData data;
   GstBus *bus;

@@ -23,13 +23,14 @@ add_compile_options(-Wno-sign-conversion)
 
 
 set(GST_TEST
-    # src/basic-tutorial-1.c
-    # src/basic-tutorial-2.c
+    # src/basic-tutorial-1.cpp
+    # src/basic-tutorial-2.cpp
     # src/basic-tutorial-3.cpp
     # src/basic-tutorial-4.cpp
+    src/basic-tutorial-5.cpp
     # src/log.c
     # RefactorSrc/sample-2.cpp
-    RefactorSrc/sample-3.cpp
+    # RefactorSrc/sample-3.cpp
     ./main.cpp)
 # add debug
 SET(CMAKE_BUILD_TYPE "Debug") 
@@ -39,7 +40,11 @@ SET(CMAKE_BUILD_TYPE "Debug")
 find_package(Boost 1.71.0 REQUIRED
              COMPONENTS system filesystem thread)
 find_package(Threads REQUIRED)
-
+# 查找 GTK3 包
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+# 包含 GTK3 头文件目录
+include_directories(${GTK3_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME}  ${GST_TEST})
 add_definitions("-Wall -g")
@@ -50,3 +55,5 @@ target_link_libraries(${PROJECT_NAME} Threads::Threads)
 
 # 链接GStreamer库
 target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES})
+
+target_link_libraries(your_executable ${GTK3_LIBRARIES})

@@ -5,7 +5,7 @@
 #include <TargetConditionals.h>
 #endif
 
-int tutorial_main_2 (int argc, char *argv[])
+int32_t tutorial_main_2 (int32_t argc, char *argv[])
 {
   InFunLOG();
   GstElement *pipeline, *source, *sink;

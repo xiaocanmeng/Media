@@ -70,7 +70,7 @@ exit:
   gst_object_unref (sink_pad);
 }
 
-int tutorial_main_3(int argc, char *argv[]) 
+int32_t tutorial_main_3(int32_t argc, char *argv[]) 
 {
   CustomData data;
   GstBus *bus;

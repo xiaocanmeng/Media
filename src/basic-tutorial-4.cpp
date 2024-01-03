@@ -13,7 +13,7 @@ typedef struct _CustomData {
 /* Forward definition of the message processing function */
 static void handle_message (CustomData *data, GstMessage *msg);
 
-int tutorial_main_4(int argc, char *argv[]) {
+int32_t tutorial_main_4(int32_t argc, char *argv[]) {
   CustomData data;
   GstBus *bus;
   GstMessage *msg;

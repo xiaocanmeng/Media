@@ -8,7 +8,6 @@ gst-launch-1.0 playbin uri=https://gstreamer.freedesktop.org/data/media/sintel_t
 
 gst-launch-1.0 playbin uri=file:///home/dev/work/Media/data/190101000052DCF0.mp4
 
-
 ### 查看调试输出：
 
 GStreamer 将在控制台输出详细的调试信息。这些信息可能包含有关加载插件、媒体流处理和错误的详细信息。
