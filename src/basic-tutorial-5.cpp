@@ -48,7 +48,7 @@ static void delete_event_cb(GtkWidget *widget, GdkEvent *event, CustomData *data
 static void slider_cb(GtkRange *range, CustomData *data)
 {
     gdouble value = gtk_range_get_value(GTK_RANGE(data->slider));
-    gst_element_seek_simple(data->playbin, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT,
+    gst_element_seek_simple(data->playbin, GST_FORMAT_TIME, static_cast<GstSeekFlags>(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT),
                             (gint64)(value * GST_SECOND));
 }
 

@@ -56,4 +56,4 @@ target_link_libraries(${PROJECT_NAME} Threads::Threads)
 # 链接GStreamer库
 target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES})
 
-target_link_libraries(your_executable ${GTK3_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}  ${GTK3_LIBRARIES})

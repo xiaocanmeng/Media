@@ -24,3 +24,10 @@ GStreamer 将在控制台输出详细的调试信息。这些信息可能包含�
 * `5`: 微调试。
 
 export GST_DEBUG=3
+
+如果报错
+0:00:00.012819894 12325 0x55d855bd5840 WARN     GST_ELEMENT_FACTORY gstelementfactory.c:458:gst_element_factory_make: no such element factory "gtkglsink"!
+Could not create gtkglsink, falling back to gtksink.
+0:00:00.012854044 12325 0x55d855bd5840 WARN     GST_ELEMENT_FACTORY gstelementfactory.c:458:gst_element_factory_make: no such element factory "gtksink"!
+请安装gstreamer1.0-gtk3
+sudo apt install gstreamer1.0-gtk3
