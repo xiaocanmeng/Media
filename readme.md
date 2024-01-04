@@ -1,12 +1,10 @@
-video-sink=autovideosink
+### 测试gstreamer安装成功
 
 **Building the tutorials** section for your platform: [Linux](https://gstreamer.freedesktop.org/documentation/installing/on-linux.html#InstallingonLinux-Build), [Mac OS X](https://gstreamer.freedesktop.org/documentation/installing/on-mac-osx.html#InstallingonMacOSX-Build) or [Windows](https://gstreamer.freedesktop.org/documentation/installing/on-windows.html#InstallingonWindows-Build), or use this specific command on Linux:
 
 gcc basic-tutorial-1.c -o basic-tutorial-1 `pkg-config --cflags --libs gstreamer-1.0`
 
 gst-launch-1.0 playbin uri=https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm video-sink=autovideosink
-
-gst-launch-1.0 playbin uri=file:///home/dev/work/Media/data/190101000052DCF0.mp4
 
 ### 查看调试输出：
 
@@ -25,9 +23,18 @@ GStreamer 将在控制台输出详细的调试信息。这些信息可能包含�
 
 export GST_DEBUG=3
 
-如果报错
+### gtk3报错问题
+
 0:00:00.012819894 12325 0x55d855bd5840 WARN     GST_ELEMENT_FACTORY gstelementfactory.c:458:gst_element_factory_make: no such element factory "gtkglsink"!
 Could not create gtkglsink, falling back to gtksink.
 0:00:00.012854044 12325 0x55d855bd5840 WARN     GST_ELEMENT_FACTORY gstelementfactory.c:458:gst_element_factory_make: no such element factory "gtksink"!
-请安装gstreamer1.0-gtk3
-sudo apt install gstreamer1.0-gtk3
+**请安装gstreamer1.0-gtk3
+sudo apt install gstreamer1.0-gtk3**
+
+### 在终端执行编译命令并将输出保存到文件（例如 build_log.txt）
+
+**make > build_log.txt 2>&1**
+
+如果没有 `2>&1`，则只有标准输出会被重定向到文件，而标准错误将会继续显示在终端上。这就意味着你在 `build_log.txt` 文件中只能看到编译过程中的标准输出，而标准错误信息仍然会在终端上显示。
+
+使用 `2>&1` 的目的是将标准错误与标准输出合并到同一个文件中，这样你可以在一个文件中查看所有输出信息，包括标准错误。

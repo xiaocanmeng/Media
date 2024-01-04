@@ -17,7 +17,7 @@ struct CustomData
   gboolean terminate;    /* Should we terminate execution? */
   gboolean seek_enabled; /* Is seeking enabled for this media? */
   gboolean seek_done;    /* Have we performed the seek already? */
-  gint64 duration;       /* How long does this media last, in nanoseconds */
+  // gint64 duration;       /* How long does this media last, in nanoseconds */
   
   //sample-5
   // GstElement *playbin; /* Our one and only pipeline */
