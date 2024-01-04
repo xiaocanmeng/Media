@@ -5,3 +5,5 @@ TO DO
 #2 `Fedora
 
 #3` Learn VLC: https://github.com/videolan/vlc.git
+
+    Learn kodi:https://github.com/xbmc/xbmc.git
