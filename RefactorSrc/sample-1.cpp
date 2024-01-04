@@ -1,5 +1,5 @@
+//Hello world!
 #include <gst/gst.h>
-
 #ifdef __APPLE__
 #include <TargetConditionals.h>
 #endif

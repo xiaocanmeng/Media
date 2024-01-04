@@ -1,3 +1,4 @@
+//GStreamer concepts
 #include <gst/gst.h>
 #include <stdio.h>
 #include "log.h"

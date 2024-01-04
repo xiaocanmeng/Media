@@ -1,3 +1,4 @@
+// Dynamic pipelines
 #include <gst/gst.h>
 #include "sample.h"
 #include "utility.hpp"
