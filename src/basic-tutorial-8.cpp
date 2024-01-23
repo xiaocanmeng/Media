@@ -1,4 +1,4 @@
-//Short-cutting the pipeline Goal
+//Short-cutting the pipeline
 #include <gst/gst.h>
 #include <gst/audio/audio.h>
 #include <string.h>
