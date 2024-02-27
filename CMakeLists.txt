@@ -29,13 +29,13 @@ set(GST_TEST
     # src/basic-tutorial-4.cpp
     # src/basic-tutorial-5.cpp
     # src/basic-tutorial-7.cpp
-    src/basic-tutorial-8.cpp
+    # src/basic-tutorial-8.cpp
     # src/log.c
     # RefactorSrc/sample-2.cpp
     # RefactorSrc/sample-3.cpp
     # RefactorSrc/sample-4.cpp
     # RefactorSrc/sample-5.cpp
-
+    RefactorSrc/app-test.cpp
     ./main.cpp)
 # add debug
 SET(CMAKE_BUILD_TYPE "Debug") 

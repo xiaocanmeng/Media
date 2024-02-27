@@ -1,0 +1,1 @@
+int32_t build_pipeline(int32_t argc, char *argv[]);
