@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIC")
 
 # 寻找GStreamer库
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GST REQUIRED gstreamer-1.0)
+pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-base-1.0)
 # 将头文件路径和库路径添加到编译选项
 include_directories(${GST_INCLUDE_DIRS})
 link_directories(${GST_LIBRARY_DIRS})
@@ -30,14 +30,16 @@ set(GST_TEST
     # src/basic-tutorial-5.cpp
     # src/basic-tutorial-7.cpp
     # src/basic-tutorial-8.cpp
-    src/basic-tutorial-12.cpp
+    # src/basic-tutorial-12.cpp
+    src/prcess_plugin.c
     # src/log.c
     # RefactorSrc/sample-2.cpp
     # RefactorSrc/sample-3.cpp
     # RefactorSrc/sample-4.cpp
     # RefactorSrc/sample-5.cpp
     # RefactorSrc/app-test.cpp
-    ./main.cpp)
+    # ./main.cpp
+    )
 # add debug
 SET(CMAKE_BUILD_TYPE "Debug") 
 

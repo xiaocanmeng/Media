@@ -42,18 +42,7 @@ sudo apt install gstreamer1.0-gtk3**
 
 ### g++ 
 
-编译并链接一个源文件，生成可执行文件
+运行以下命令来编译源文件并生成可执行文件：
 
-g++ my_program.cpp -o my_program
+g++ -o test test.cpp
 
-###### 仅编译源文件，生成目标文件
-
-g++ -c my_program.cpp -o my_program.o
-
-编译多个源文件，链接生成可执行文件
-
-g++ file1.cpp file2.cpp -o my_program
-
-指定C++标准版本
-
-g++ -std=c++11 my_program.cpp -o my_program
