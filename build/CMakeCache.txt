@@ -602,7 +602,7 @@ GLIB_glib-2.0_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/opt/dc-ivi-pf
 __pkg_config_arguments_GLIB:INTERNAL=REQUIRED;glib-2.0
 __pkg_config_arguments__gstreamer-1.0:INTERNAL=QUIET;gstreamer-1.0
 __pkg_config_arguments__gstreamer-app-1.0:INTERNAL=QUIET;gstreamer-app-1.0

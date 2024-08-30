@@ -15,17 +15,26 @@ project(alsa_src)
 include(${CMAKE_SOURCE_DIR}/cmake/common.cmake)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
+ 
+
 
 
 # Warning options
-add_compile_options(-Wall)
-add_compile_options(-Wextra)
-add_compile_options(-Wconversion)
-add_compile_options(-fPIC)
+# add_compile_options(-Wall)
+# add_compile_options(-Wextra)
+# add_compile_options(-Wconversion)
+# add_compile_options(-fPIC)
 
 # Warning option Suppression
-add_compile_options(-Wno-unused-parameter)
-add_compile_options(-Wno-sign-conversion)
+# add_compile_options(-Wno-unused-parameter)
+# add_compile_options(-Wno-sign-conversion)
+
+# 关闭所有警告  
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")  
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")  
+elseif(MSVC)  
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W0")  
+endif()  
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
