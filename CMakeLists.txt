@@ -38,7 +38,7 @@ set(GST_TEST
     # RefactorSrc/sample-4.cpp
     # RefactorSrc/sample-5.cpp
     # RefactorSrc/app-test.cpp
-    # ./main.cpp
+    ./main.cpp
     )
 # add debug
 SET(CMAKE_BUILD_TYPE "Debug") 
@@ -67,3 +67,8 @@ target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES})
 # 包含 GTK3 头文件目录
 # include_directories(${GTK3_INCLUDE_DIRS})
 # target_link_libraries(${PROJECT_NAME}  ${GTK3_LIBRARIES})
+add_definitions(-DPACKAGE="cecaudiosrc")
+
+# 安装插件
+install(TARGETS GST_TEST DESTINATION bin)
+install(FILES src/prcess_plugin.c DESTINATION lib/gstreamer-1.0)

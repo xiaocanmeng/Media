@@ -46,3 +46,8 @@ sudo apt install gstreamer1.0-gtk3**
 
 g++ -o test test.cpp
 
+
+查看gstreamer 黑名单
+gst-instpect-1.0 -b
+rm -rf ~/.cache/gstreamer-1.0/*
+GST_DEBUG=4  gst-inspect-1.0 cecaudiosrc 
