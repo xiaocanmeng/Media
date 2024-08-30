@@ -372,40 +372,47 @@ set_hwparams (GstAlsaSrc * alsa)
     snd_pcm_hw_params_get_buffer_time_min (params, &min, NULL);
     snd_pcm_hw_params_get_buffer_time_max (params, &max, NULL);
 
-    GST_DEBUG_OBJECT (alsa, "buffer time %u, min %u, max %u",
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 expect buffer time %u, min %u, max %u",
         alsa->buffer_time, min, max);
 
     snd_pcm_hw_params_get_buffer_size_min (params, &min);
     snd_pcm_hw_params_get_buffer_size_max (params, &max);
 
-    GST_DEBUG_OBJECT (alsa, "buffer size %u, min %u, max %u",
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 default buffer size %u, min %u, max %u",
         alsa->buffer_size, min, max);
 
     snd_pcm_hw_params_get_period_time_min (params, &min, NULL);
     snd_pcm_hw_params_get_period_time_max (params, &max, NULL);
 
-    GST_DEBUG_OBJECT (alsa, "period time %u, min %u, max %u",
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 expect period time %u, min %u, max %u",
         alsa->period_time, min, max);
 
     snd_pcm_hw_params_get_period_size_min (params, &min, NULL);
     snd_pcm_hw_params_get_period_size_max (params, &max, NULL);
 
-    GST_DEBUG_OBJECT (alsa, "period size %u, min %u, max %u",
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 default period size %u, min %u, max %u",
         alsa->period_size, min, max);    
 
     snd_pcm_hw_params_get_periods_min (params, &min, NULL);
     snd_pcm_hw_params_get_periods_max (params, &max, NULL);
 
-    GST_DEBUG_OBJECT (alsa, "periods min %u, max %u", min, max);
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 periods min %u, max %u", min, max);
   }
 #endif
 
   if (alsa->buffer_time != -1) {
     /* set the buffer time */
+
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 expect buffer time %u", alsa->buffer_time);
+
     CHECK (snd_pcm_hw_params_set_buffer_time_near (alsa->handle, params,
             &alsa->buffer_time, NULL), buffer_time);
-    GST_DEBUG_OBJECT (alsa, "2024/08/30 buffer time %u", alsa->buffer_time);
-
+    
+    // alsa->buffer_size = 1536u;
+    // GST_DEBUG_OBJECT (alsa, "2024/08/30 expect buffer size %u", alsa->buffer_size);
+    // CHECK (snd_pcm_hw_params_set_buffer_size_near (alsa->handle, params,
+            // &alsa->buffer_size), buffer_time);
+    // GST_DEBUG_OBJECT (alsa, "2024/08/30 actual buffer size %u",alsa->buffer_size);
     CHECK (snd_pcm_hw_params_get_buffer_time (params,&alsa->buffer_time,NULL), buffer_time);
 
     GST_DEBUG_OBJECT (alsa, "2024/08/30 actual buffer time %u",alsa->buffer_time);
@@ -413,20 +420,26 @@ set_hwparams (GstAlsaSrc * alsa)
   }
   if (alsa->period_time != -1) {
     /* set the period time */
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 expect period time %u", alsa->period_time);
     CHECK (snd_pcm_hw_params_set_period_time_near (alsa->handle, params,
             &alsa->period_time, NULL), period_time);
-    GST_DEBUG_OBJECT (alsa, "2024/08/30 period time %u", alsa->period_time);
+    CHECK (snd_pcm_hw_params_get_period_time (params,
+            &alsa->period_time, NULL), period_time);
+    GST_DEBUG_OBJECT (alsa, "2024/08/30 actual period time %u",alsa->period_time);
   }
 
   /* write the parameters to device */
   CHECK (snd_pcm_hw_params (alsa->handle, params), set_hw_params);
-  
+
+  GST_DEBUG_OBJECT (alsa, "2024/08/30 default buffer size %u", alsa->buffer_size);
+  GST_DEBUG_OBJECT (alsa, "2024/08/30 default period size %lu", alsa->period_size);
+
   CHECK (snd_pcm_hw_params_get_buffer_size (params, &alsa->buffer_size),
       buffer_size);
-  GST_DEBUG_OBJECT (alsa, "buffer size %u", alsa->buffer_size);
+  GST_DEBUG_OBJECT (alsa, "2024/08/30 actual buffer size %u", alsa->buffer_size);
   CHECK (snd_pcm_hw_params_get_period_size (params, &alsa->period_size, NULL),
       period_size);
-  GST_DEBUG_OBJECT (alsa, "period size %lu", alsa->period_size);
+  GST_DEBUG_OBJECT (alsa, "2024/08/30 actual period size %lu", alsa->period_size);
 
   snd_pcm_hw_params_free (params);
   return 0;
