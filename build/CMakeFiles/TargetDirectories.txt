@@ -1,0 +1,10 @@
+/home/dev/work/Media/build/CMakeFiles/edit_cache.dir
+/home/dev/work/Media/build/CMakeFiles/package_source.dir
+/home/dev/work/Media/build/CMakeFiles/rebuild_cache.dir
+/home/dev/work/Media/build/CMakeFiles/doc.dir
+/home/dev/work/Media/build/CMakeFiles/package.dir
+/home/dev/work/Media/build/src/CMakeFiles/edit_cache.dir
+/home/dev/work/Media/build/src/CMakeFiles/package_source.dir
+/home/dev/work/Media/build/src/CMakeFiles/rebuild_cache.dir
+/home/dev/work/Media/build/src/CMakeFiles/gstalsa.dir
+/home/dev/work/Media/build/src/CMakeFiles/package.dir
