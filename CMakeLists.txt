@@ -14,6 +14,8 @@ include_directories(${GST_INCLUDE_DIRS})
 link_directories(${GST_LIBRARY_DIRS})
 
 
+# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-access-control --coverage -DUNIT_TEST") # Accessing Private Variables (-fno-access-control)
+
 #增加宏
 add_definitions(-DIostream=1)
 
@@ -31,13 +33,14 @@ set(GST_TEST
     # src/basic-tutorial-7.cpp
     # src/basic-tutorial-8.cpp
     # src/basic-tutorial-12.cpp
-    src/prcess_plugin.c
+    # src/prcess_plugin.c
     # src/log.c
     # RefactorSrc/sample-2.cpp
     # RefactorSrc/sample-3.cpp
     # RefactorSrc/sample-4.cpp
     # RefactorSrc/sample-5.cpp
     # RefactorSrc/app-test.cpp
+    videosrc_tst/test_gst_buffer.cpp
     ./main.cpp
     )
 # add debug
@@ -48,7 +51,7 @@ SET(CMAKE_BUILD_TYPE "Debug")
 find_package(Boost 1.71.0 REQUIRED
              COMPONENTS system filesystem thread)
 find_package(Threads REQUIRED)
-
+find_library(ASOUND_LIB asound)  
 
 add_executable(${PROJECT_NAME}  ${GST_TEST})
 add_definitions("-Wall -g")
@@ -59,6 +62,9 @@ target_link_libraries(${PROJECT_NAME} Threads::Threads)
 
 # 链接GStreamer库
 target_link_libraries(${PROJECT_NAME} ${GST_LIBRARIES})
+
+
+target_link_libraries(${PROJECT_NAME} ${ASOUND_LIB})  
 
 
 # 查找 GTK3 包
