@@ -1,0 +1,78 @@
+# 系统模块图（SD 阶段 · 草案）
+
+```plantuml
+@startuml SD
+!theme plain
+
+' ===== Layout / Geometry =====
+skinparam linetype ortho
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam roundCorner 0
+skinparam nodesep 120
+skinparam ranksep 120
+
+' ===== Color Design =====
+skinparam package {
+  BackgroundColor #F8F9FA
+  BorderColor #333333
+}
+
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #2F4F4F
+}
+
+skinparam ArrowColor #444444
+skinparam ArrowFontColor #333333
+
+title Recording System - System Modules (SD)
+
+package "Client Side" {
+  [Client / API] as API <<interface>>
+}
+
+package "Recording Server" {
+  [Recording Service] as RS <<service>>
+  [Source Manager] as SM <<manager>>
+  [Capture Processing] as CP <<processing>>
+  [Subtitle Processing] as SP <<processing>>
+  [Output Management] as OM <<output>>
+}
+
+package "Infrastructure / OSS" {
+  [Pipeline Runtime (GStreamer)] as GST <<infra>>
+  [Audio / Video Devices] as DEV <<external>>
+  [Network Sources] as NET <<external>>
+  [File System] as FS <<external>>
+  [ASR / LLM Runtime] as LLM <<external>>
+}
+
+' ===== Control Flow =====
+API --> RS : control requests
+
+RS --> SM : manage sources
+RS --> CP : control capture
+RS --> OM : output config
+
+' ===== Source Interaction =====
+SM --> DEV : open / close device
+SM --> NET : connect / disconnect
+
+' ===== Pipeline Usage =====
+CP --> GST : create / control pipelines
+OM --> GST : create / control pipelines
+
+GST --> CP : media buffers
+GST --> OM : muxed streams
+
+' ===== Subtitle Flow =====
+CP --> SP : audio data
+SP --> LLM : speech / text processing
+SP --> OM : subtitle items
+
+' ===== Output =====
+OM -> FS : write output files
+
+@enduml
+```
